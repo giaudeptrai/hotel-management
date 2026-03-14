@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_types', function (Blueprint $table) {
+        Schema::create('amenities', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Single, Double, Twin...
-            $table->integer('capacity_adult')->default(2);
-            $table->integer('capacity_child')->default(1);
+            $table->string('name'); // Wifi, Bồn tắm...
+            $table->string('icon')->nullable(); // fa-wifi
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('room_types');
+        Schema::dropIfExists('amenities');
     }
 };

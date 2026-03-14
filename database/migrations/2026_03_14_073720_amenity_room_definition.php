@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('amenity_room_definition', function (Blueprint $table) {
             $table->id();
             $table->foreignId('room_definition_id')->constrained('room_definitions')->onDelete('cascade');
-            $table->string('room_number')->unique(); // 101, 102...
-            $table->string('floor'); // Tầng 1, Tầng 2...
-            $table->enum('status', ['available', 'occupied', 'cleaning', 'maintenance'])->default('available');
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
+            $table->foreignId('amenity_id')->constrained('amenities')->onDelete('cascade');
         });
     }
 
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('amenity_room_definition');
     }
 };

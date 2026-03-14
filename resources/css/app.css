@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+    /* Nút bấm Gold - Trạng thái bình thường */
+    .btn-gold {
+        @apply bg-luxury-gold text-white px-5 py-2.5 rounded-sm font-semibold uppercase tracking-widest text-xs transition-all duration-300;
+    }
+    /* Tách riêng trạng thái Hover để PostCSS không bị lỗi */
+    .btn-gold:hover {
+        @apply bg-opacity-90 shadow-lg;
+    }
+    /* Tách riêng trạng thái Active */
+    .btn-gold:active {
+        @apply transform scale-95;
+    }
+    /* Thẻ bài Luxury Card */
+    .luxury-card {
+        @apply bg-white border border-gray-100 rounded-sm shadow-sm transition-all duration-500;
+    }
+    .luxury-card:hover {
+        @apply shadow-md;
+    }
+}

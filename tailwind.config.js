@@ -12,8 +12,19 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                luxury: {
+                    navy: '#0A1128',
+                    charcoal: '#1C1C1C',
+                    gold: '#C5A059',
+                    champagne: '#F7E7CE',
+                }
+            },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                // Font nội dung: Nunito Sans cực kỳ uyển chuyển
+                sans: ['Nunito Sans', 'ui-sans-serif', 'system-ui'],
+                // Font tiêu đề: Sora tròn trịa, đẳng cấp
+                display: ['Sora', 'sans-serif'],
             },
         },
     },

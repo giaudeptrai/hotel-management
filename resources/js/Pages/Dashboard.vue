@@ -1,30 +1,41 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Tổng quan quản trị" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2
-                class="text-xl font-semibold leading-tight text-gray-800"
-            >
-                Dashboard
+    <AdminLayout>
+        <div class="mb-10">
+            <h2 class="font-display text-3xl font-semibold text-luxury-navy italic">
+                Tổng quan hệ thống
             </h2>
-        </template>
-
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div
-                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg"
-                >
-                    <div class="p-6 text-gray-900">
-                        You're logged in!
-                    </div>
-                </div>
-            </div>
+            <p class="font-sans text-gray-500 mt-2">Chào mừng bạn trở lại, Giàu!</p>
         </div>
-    </AuthenticatedLayout>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div class="luxury-card p-8 border-l-4 border-l-luxury-gold">
+                <p class="font-sans text-xs uppercase tracking-widest text-gray-400 mb-2">Phòng trống</p>
+                <p class="font-display text-4xl font-semibold text-luxury-navy">{{ $page.props.stats.availableRooms }}</p>
+            </div>
+
+            <div class="luxury-card p-8">
+                <p class="font-sans text-xs uppercase tracking-widest text-gray-400 mb-2">Đang ở</p>
+                <p class="font-display text-4xl font-semibold text-luxury-navy">{{ $page.props.stats.occupiedRooms }}</p>
+            </div>
+
+            <div class="luxury-card p-8">
+                <p class="font-sans text-xs uppercase tracking-widest text-gray-400 mb-2">Cần dọn dẹp</p>
+                <p class="font-display text-4xl font-semibold text-luxury-navy">{{ $page.props.stats.roomsNeedingCleaning }}</p>
+            </div>
+
+            <div class="luxury-card p-8 bg-luxury-navy">
+                <p class="font-sans text-xs uppercase tracking-widest text-luxury-gold mb-2">Doanh thu ngày</p>
+                <p class="font-display text-4xl font-semibold text-white">{{ $page.props.stats.dailyRevenue }}</p>
+            </div>
+
+        </div>
+    </AdminLayout>
 </template>
