@@ -2,37 +2,29 @@
 
 namespace App\Services;
 use App\Models\Room;
-
+use App\Models\RoomDefinition;      
 class RoomService
 {
-    public function getRoomMatrix()
-    {
-        $rooms = Room::with('roomType')
-        ->orderBy('floor')
-        ->orderBy('room_number')
-        ->get();
-
-        return $rooms->groupBy('floor');
+    public function getAll(){
+        return Room::with('definition.category','definition.type')
+            ->orderBy('floor','asc')
+            ->orderBy('room_number','asc')
+            ->get();
     }
-    
-    // lễ tân cập nhật trạng thái phòng sau khi khách trả phòng
-    public function updateRoomStatus($roomId, $status)
-    {
-        $room = Room::findOrFail($roomId);
+    public function create(array $data){
+        return Room::create($data);
+    }
+    public function update($id, array $data){
+        $room = Room::findOrFail($id);
+        $room->update($data);
+        return $room;
+    }
+    public function delete($id){
+        return Room::destroy($id);
+    }
+    public function changeStatus($id, $status){
+        $room = Room::findOrFail($id);
         $room->update(['status' => $status]);
-        $room->save();
+        return $room;
     }
-
-    // app/Services/RoomService.php
-
-    public function getDashboardStats()
-    {
-        return [
-            'availableRooms'        => \App\Models\Room::where('status', 'available')->count(),
-            'occupiedRooms'         => \App\Models\Room::where('status', 'occupied')->count(),
-            'roomsNeedingCleaning'  => \App\Models\Room::where('status', 'cleaning')->count(),
-            'dailyRevenue'          => '0đ', // Tạm thời để 0, sau này làm bảng Booking mình tính sau
-        ];
-    }
-
 }

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Services\RoomTypeService;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class RoomTypeController extends Controller
@@ -15,42 +16,71 @@ class RoomTypeController extends Controller
         $this->roomTypeService = $roomTypeService;
     }
 
+    /**
+     * Hiển thị danh sách loại phòng
+     */
     public function index()
     {
-        $roomTypes = $this->roomTypeService->getActiveRoomTypes();
         return Inertia::render('Admin/RoomTypes/Index', [
-            'roomTypes' => $roomTypes
+            'roomTypes' => $this->roomTypeService->getAllForAdmin()
         ]);
     }
 
-    public function show($slug)
-    {
-        $roomType = $this->roomTypeService->getRoomTypeSlug($slug);
-        return Inertia::render('Admin/RoomTypes/Show', [
-            'roomType' => $roomType
-        ]);
-    }
-
+    /**
+     * Trang tạo mới (Nếu Giàu dùng trang riêng thay vì Modal)
+     */
     public function create()
     {
         return Inertia::render('Admin/RoomTypes/Create');
     }
 
-    public function store(Request $request){
-        $vlaidated = $request->validate([
-            'name' => 'required|string|max:255',
-            'price_per_night' => 'required|numeric',
-            'discount_price' => 'nullable|numeric',
-            'max_adults' => 'required|integer',
-            'max_children' => 'required|integer',
-            'bed_type' => 'nullable|string|max:255',
-            'view' => 'nullable|string|max:255',
-            'area' => 'nullable|integer',
-            'description' => 'nullable|string',
-            'amenities' => 'nullable|array',
-            'images' => 'nullable|array'
+    /**
+     * Lưu dữ liệu mới
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:room_types,name',
+            'capacity_adult' => 'required|integer|min:1',
+            'capacity_child' => 'required|integer|min:0',
         ]);
+
         $this->roomTypeService->createRoomType($validated);
-        return redirect()->route('admin.room-types.index')->with('success', 'Loại phòng mới đã được tạo thành công!');
+
+        return redirect()->route('admin.room-types.index')
+            ->with('success', 'Đã thêm loại phòng mới thành công!');
+    }
+
+    /**
+     * Xóa loại phòng
+     */
+    public function destroy($id)
+    {
+        $this->roomTypeService->deleteRoomType($id);
+
+        return redirect()->back()
+            ->with('success', 'Đã xóa loại phòng thành công!');
+    }
+
+    public function edit($id)
+    {
+        $roomType = $this->roomTypeService->findById($id);
+        return Inertia::render('Admin/RoomTypes/Edit', [
+            'roomType' => $roomType
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:room_types,name,' . $id,
+            'capacity_adult' => 'required|integer|min:1',
+            'capacity_child' => 'required|integer|min:0',
+        ]);
+
+        $this->roomTypeService->updateRoomType($id, $validated);
+
+        return redirect()->route('admin.room-types.index')
+            ->with('success', 'Đã cập nhật loại phòng thành công!');
     }
 }

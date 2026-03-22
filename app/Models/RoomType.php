@@ -2,37 +2,35 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class RoomType extends Model
 {
-    use HasFactory;
-    
-    protected $fillable = [
-        'name',
-        'slug',
-        'price_per_night',
-        'discount_price',
-        'max_adults',
-        'max_children',
-        'bed_type',
-        'view',
-        'area',
-        'description',
-        'amenities',
-        'images',
-        'is_active'
-    ];
+    protected $fillable = ['name', 'slug', 'capacity_adult', 'capacity_child'];
 
-    protected $casts = [
-        'amenities' => 'array',
-        'images' => 'array',
-        'is_active' => 'boolean',
-    ];
-
-    public function rooms()
+    /**
+     * Một Loại phòng có nhiều Định nghĩa phòng (Room Definitions)
+     */
+    public function roomDefinitions(): HasMany
     {
-        return $this->hasMany(Room::class);
+        return $this->hasMany(RoomDefinition::class, 'room_type_id');
+    }
+
+    /**
+     * Một Loại phòng có nhiều Phòng thực tế thông qua Định nghĩa phòng
+     * Đây chính là cái "rooms()" mà Controller đang réo gọi nè Giàu!
+     */
+    public function rooms(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Room::class,           // Model đích (Phòng)
+            RoomDefinition::class, // Model trung gian (Định nghĩa phòng)
+            'room_type_id',        // Khóa ngoại trên bảng trung gian
+            'room_definition_id',  // Khóa ngoại trên bảng đích
+            'id',                  // Khóa chính trên bảng Loại phòng
+            'id'                   // Khóa chính trên bảng trung gian
+        );
     }
 }

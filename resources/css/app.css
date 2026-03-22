@@ -1,24 +1,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer base {
+    body {
+        @apply bg-surface text-main-text transition-colors duration-500 ease-in-out font-sans antialiased;
+        .dark & {
+            @apply bg-dark-bg text-dark-text;
+        }
+    }
+}
+
 @layer components {
-    /* Nút bấm Gold - Trạng thái bình thường */
-    .btn-gold {
-        @apply bg-luxury-gold text-white px-5 py-2.5 rounded-sm font-semibold uppercase tracking-widest text-xs transition-all duration-300;
+    .app-card {
+        @apply bg-white rounded-layout p-8 border border-slate-100 shadow-app transition-all duration-500;
+        .dark & {
+            @apply bg-dark-card border-dark-border shadow-app-dark;
+        }
     }
-    /* Tách riêng trạng thái Hover để PostCSS không bị lỗi */
-    .btn-gold:hover {
-        @apply bg-opacity-90 shadow-lg;
+    .app-input {
+        @apply w-full text-sm border-slate-200 bg-white rounded-layout py-4 px-6 outline-none transition-all duration-300;
+        &:focus {
+            @apply border-primary-500 ring-4 ring-primary-500/10;
+        }
+        .dark & {
+            @apply bg-dark-bg border-dark-border text-dark-text;
+            &:focus {
+                @apply ring-primary-500/20;
+            }
+        }
     }
-    /* Tách riêng trạng thái Active */
-    .btn-gold:active {
-        @apply transform scale-95;
+    .btn-primary {
+        @apply px-8 py-3.5 rounded-layout bg-primary-500 text-white font-bold text-sm tracking-tight shadow-sm transition-all duration-300;
+        &:hover {
+            @apply bg-primary-600 -translate-y-0.5 shadow-glow;
+        }
+        &:active {
+            @apply scale-95 translate-y-0;
+        }
     }
-    /* Thẻ bài Luxury Card */
-    .luxury-card {
-        @apply bg-white border border-gray-100 rounded-sm shadow-sm transition-all duration-500;
+    .btn-secondary {
+        @apply px-8 py-3.5 rounded-layout border border-slate-200 bg-white text-slate-600 font-bold text-sm transition-all duration-200;
+        &:hover {
+            @apply bg-slate-50 border-slate-300;
+        }
+        .dark & {
+            @apply bg-dark-card border-dark-border text-slate-400;
+            &:hover {
+                @apply bg-slate-800 text-white;
+            }
+        }
     }
-    .luxury-card:hover {
-        @apply shadow-md;
+    .text-title {
+        @apply text-2xl font-black tracking-tight text-main-text transition-colors duration-500;
+        .dark & {
+            @apply text-dark-text;
+        }
+    }
+    .text-desc {
+        @apply text-sm text-muted-text transition-colors duration-500;
+        .dark & {
+            @apply text-slate-400;
+        }
     }
 }

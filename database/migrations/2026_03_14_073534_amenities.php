@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('amenities', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // Wifi, Bồn tắm...
-            $table->string('icon')->nullable(); // fa-wifi
+            $table->text('icon')->nullable(); // fa-wifi
             $table->timestamps();
         });
     }

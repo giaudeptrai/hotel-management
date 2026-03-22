@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('room_types', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // Single, Double, Twin...
+            $table->string('slug')->unique();
             $table->integer('capacity_adult')->default(2);
             $table->integer('capacity_child')->default(1);
             $table->timestamps();

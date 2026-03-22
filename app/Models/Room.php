@@ -1,24 +1,22 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\RoomDefinition;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
+        'room_definition_id',
         'room_number',
-        'room_type_id',
-        'status',
         'floor',
-        'notes',
+        'status',
+        'is_active'
     ];
-    
-    public function roomType()
+
+    public function definition()
     {
-        return $this->belongsTo(RoomType::class);
+        return $this->belongsTo(RoomDefinition::class, 'room_definition_id');
     }
 }

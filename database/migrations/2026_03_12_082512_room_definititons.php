@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('room_definitions', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->foreignId('room_category_id')->constrained('room_categories')->onDelete('cascade');
             $table->foreignId('room_type_id')->constrained('room_types')->onDelete('cascade');
             $table->decimal('base_price', 15, 2);
