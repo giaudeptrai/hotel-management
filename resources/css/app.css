@@ -1,0 +1,669 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+    body {
+        @apply bg-surface text-main-text transition-colors duration-500 ease-in-out font-sans antialiased;
+    }
+    /* Chỗ này sửa lại cho chuẩn Nesting CSS */
+    .dark body {
+        @apply bg-dark-bg text-dark-text;
+    }
+}
+
+@layer components {
+    .app-card {
+        @apply bg-white rounded-layout p-8 border border-slate-100 shadow-app transition-all duration-500;
+    }
+    .dark .app-card {
+        @apply bg-dark-card border-dark-border shadow-app-dark;
+    }
+    .app-input {
+        @apply w-full text-sm border-slate-200 bg-white rounded-layout py-4 px-6 outline-none transition-all duration-300;
+        &:focus {
+            @apply border-primary-500 ring-4 ring-primary-500/10;
+        }
+    }
+    .dark .app-input {
+        @apply bg-dark-bg border-dark-border text-dark-text;
+        &:focus {
+            @apply ring-primary-500/20;
+        }
+    }
+    .btn-primary {
+        @apply px-8 py-3.5 rounded-layout bg-primary-500 text-white font-bold text-sm tracking-tight shadow-sm transition-all duration-300;
+        &:hover {
+            @apply bg-primary-600 -translate-y-0.5 shadow-glow;
+        }
+        &:active {
+            @apply scale-95 translate-y-0;
+        }
+    }
+    /* 🎯 ĐÂY LÀ CHỖ NÍ BỊ LỖI NÈ: Đã xóa hết dấu cách sau dấu hai chấm */
+    .form-input-pms {
+        @apply w-full bg-slate-50 border-2 border-transparent rounded-2xl py-4 px-6 text-main-text font-bold transition-all outline-none;
+        &::placeholder {
+            @apply text-slate-300;
+        }
+        /* Focus state */
+        &:focus {
+            @apply border-primary-500/20 bg-white ring-4 ring-primary-500/10;
+        }
+    }
+    /* Dark mode cho form-input-pms */
+    .dark .form-input-pms {
+        @apply bg-dark-bg text-white;
+        &:focus {
+            @apply border-dark-border;
+        }
+    }
+    .form-input-pms-amber {
+        &:focus {
+            @apply border-amber-500/20 ring-amber-500/10;
+        }
+    }
+    .form-input-pms-compact {
+        @apply py-3 px-4 text-sm;
+    }
+    /* Các class hỗ trợ khác */
+    .custom-scrollbar::-webkit-scrollbar,
+    .custom-scrollbar-dark::-webkit-scrollbar {
+        width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-white/20 rounded-full;
+    }
+    .custom-scrollbar-dark::-webkit-scrollbar-thumb {
+        @apply bg-slate-200 rounded-full;
+    }
+    .input-number-clean::-webkit-outer-spin-button,
+    .input-number-clean::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .input-number-clean[type='number'] {
+        appearance: textfield;
+        -moz-appearance: textfield;
+    }
+    .text-title {
+        @apply text-2xl font-black tracking-tight text-main-text transition-colors duration-500;
+    }
+    .dark .text-title {
+        @apply text-dark-text;
+    }
+    .text-desc {
+        @apply text-sm text-muted-text transition-colors duration-500;
+    }
+    .dark .text-desc {
+        @apply text-slate-400;
+    }
+    .admin-index-title {
+        @apply text-2xl font-black text-main-text tracking-tight italic;
+    }
+    .dark .admin-index-title {
+        @apply text-white;
+    }
+    .admin-index-subtitle {
+        @apply text-[11px] text-muted-text uppercase font-bold tracking-[0.2em];
+    }
+    .admin-index-create-btn {
+        @apply !py-2.5 !px-6 rounded-layout bg-primary-500 text-white font-bold text-sm tracking-tight shadow-app transition-all duration-300 flex items-center gap-2;
+        &:hover {
+            @apply bg-primary-600 -translate-y-0.5 shadow-glow;
+        }
+        &:active {
+            @apply scale-95 translate-y-0;
+        }
+    }
+    .admin-index-secondary-btn {
+        @apply !py-2.5 !px-6 rounded-layout bg-slate-100 text-main-text font-bold text-sm tracking-tight shadow-sm transition-all duration-300 flex items-center gap-2 border border-slate-100;
+        &:hover {
+            @apply bg-slate-200 -translate-y-0.5 shadow-md;
+        }
+        &:active {
+            @apply scale-95 translate-y-0;
+        }
+    }
+    .dark .admin-index-secondary-btn {
+        @apply bg-dark-bg text-white border-dark-border;
+        &:hover {
+            @apply bg-slate-800;
+        }
+    }
+    .admin-index-search {
+        @apply w-full !w-64 bg-slate-50 border-2 border-transparent !rounded-xl py-3 !px-4 text-sm text-main-text font-bold transition-all outline-none;
+        &::placeholder {
+            @apply text-slate-300;
+        }
+        &:focus {
+            @apply border-primary-500/20 bg-white ring-4 ring-primary-500/10;
+        }
+    }
+    .dark .admin-index-search {
+        @apply bg-dark-bg text-white;
+        &:focus {
+            @apply border-dark-border;
+        }
+    }
+    .admin-index-back-link {
+        @apply text-desc hover:text-primary-500 font-bold transition-colors flex items-center gap-2;
+    }
+    .admin-index-history-btn {
+        @apply !py-2.5 !px-6 rounded-layout bg-slate-800 text-white font-bold text-sm tracking-tight shadow-app transition-all duration-300 flex items-center gap-2;
+        &:hover {
+            @apply bg-slate-900 -translate-y-0.5;
+        }
+        &:active {
+            @apply scale-95 translate-y-0;
+        }
+    }
+    .admin-sidebar-shell {
+        @apply fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-slate-100 bg-white text-main-text transition-colors duration-300 dark:border-dark-border dark:bg-dark-card dark:text-dark-text;
+    }
+    .admin-sidebar-brand {
+        @apply flex h-[70px] items-center gap-3 border-b border-slate-100 px-5 dark:border-dark-border;
+    }
+    .admin-sidebar-brand-mark {
+        @apply flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-500 text-sm font-black italic text-white shadow-sm;
+    }
+    .admin-sidebar-brand-text {
+        @apply min-w-0;
+    }
+    .admin-sidebar-title {
+        @apply truncate text-lg font-black tracking-tight;
+    }
+    .admin-sidebar-subtitle {
+        @apply text-[10px] font-bold uppercase tracking-[0.2em] text-muted-text;
+    }
+    .admin-sidebar-scroll {
+        @apply flex-1 overflow-y-auto px-3 py-4 custom-scrollbar dark:custom-scrollbar-dark;
+    }
+    .admin-sidebar-section {
+        @apply mb-4 rounded-2xl border border-slate-100 bg-slate-50/70 p-2 dark:border-dark-border dark:bg-dark-bg/40;
+    }
+    .admin-sidebar-section-title {
+        @apply px-3 pt-2 text-[10px] font-black uppercase tracking-[0.22em] text-muted-text;
+    }
+    .admin-sidebar-link {
+        @apply mt-2 flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-bold transition-colors duration-200;
+    }
+    .admin-sidebar-link-active {
+        @apply bg-primary-500 text-white;
+    }
+    .admin-sidebar-link-inactive {
+        @apply text-slate-600 hover:bg-white hover:text-main-text dark:text-slate-300 dark:hover:bg-dark-card dark:hover:text-white;
+    }
+    .admin-sidebar-link-icon {
+        @apply flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-slate-100 text-primary-500 dark:bg-dark-border dark:text-primary-400;
+    }
+    .admin-sidebar-link-icon-active {
+        @apply bg-white/15 text-white;
+    }
+    .admin-sidebar-footer {
+        @apply border-t border-slate-100 p-4 dark:border-dark-border;
+    }
+    .admin-sidebar-user-card {
+        @apply rounded-2xl bg-slate-50 p-4 dark:bg-dark-bg;
+    }
+    .admin-topbar-button {
+        @apply inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-100 bg-white text-main-text transition-colors hover:bg-slate-50 dark:border-dark-border dark:bg-dark-card dark:text-white dark:hover:bg-dark-bg;
+    }
+    .admin-topbar-chip {
+        @apply rounded-full bg-slate-100 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-slate-600 dark:bg-dark-bg dark:text-slate-300;
+    }
+    .booking-tab-switch {
+        @apply bg-slate-100 dark:bg-dark-bg p-1 rounded-xl flex items-center font-bold text-xs shadow-inner;
+    }
+    .booking-tab-btn {
+        @apply px-6 py-2.5 rounded-lg transition-all;
+    }
+    .booking-tab-btn-active {
+        @apply bg-white dark:bg-dark-card text-primary-500 shadow-sm;
+    }
+    .booking-tab-btn-inactive {
+        @apply text-muted-text hover:text-main-text;
+    }
+    .admin-filter-reset-btn {
+        @apply px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-main-text dark:text-white font-bold text-sm transition-colors uppercase tracking-widest flex items-center justify-center gap-2;
+    }
+    .admin-form-page {
+        @apply max-w-3xl mx-auto space-y-8 pb-12;
+    }
+    .admin-form-card {
+        @apply bg-white dark:bg-dark-card p-8 md:p-10 rounded-[2.5rem] shadow-xl border border-slate-100 dark:border-dark-border space-y-7 relative overflow-hidden;
+    }
+    .admin-form-back-link {
+        @apply text-sm font-bold text-muted-text hover:text-primary-500 transition-colors mb-1 flex items-center gap-2;
+    }
+    .index-table-card {
+        @apply bg-white rounded-layout !p-0 overflow-hidden border border-slate-100 shadow-sm transition-all duration-500;
+    }
+    .dark .index-table-card {
+        @apply bg-dark-card border-dark-border;
+    }
+    .index-table {
+        @apply w-full text-left border-collapse;
+    }
+    .index-table-head {
+        @apply bg-slate-50/50 border-b border-slate-100;
+    }
+    .dark .index-table-head {
+        @apply bg-dark-bg/50 border-dark-border;
+    }
+    .index-table-head-row {
+        @apply text-[10px] font-black text-muted-text uppercase tracking-widest;
+    }
+    .index-table-th {
+        @apply px-6 py-4;
+    }
+    .index-table-th-right {
+        @apply text-right px-10;
+    }
+    .index-table-body {
+        @apply divide-y divide-slate-100 text-sm;
+    }
+    .dark .index-table-body {
+        @apply divide-dark-border;
+    }
+    .index-table-row {
+        @apply transition-all;
+    }
+    .index-table-row:hover {
+        @apply bg-slate-50/40;
+    }
+    .dark .index-table-row {
+        @apply transition-all;
+    }
+    .dark .index-table-row:hover {
+        @apply bg-slate-800/30;
+    }
+    .index-actions {
+        @apply flex justify-end gap-3;
+    }
+    .index-action-btn {
+        @apply w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-400 border border-slate-100 transition-all shadow-sm;
+    }
+    .dark .index-action-btn {
+        @apply bg-slate-800 border-dark-border;
+    }
+    .index-action-btn-edit {
+        @apply transition-all;
+    }
+    .index-action-btn-edit:hover {
+        @apply text-primary-500;
+    }
+    .index-action-btn-delete {
+        @apply transition-all;
+    }
+    .index-action-btn-delete:hover {
+        @apply text-rose-500;
+    }
+    .index-thumb-sm {
+        @apply w-14 h-14 mx-auto bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex items-center justify-center;
+    }
+    .index-thumb-md {
+        @apply w-28 h-20 mx-auto bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex items-center justify-center;
+    }
+    .dark .index-thumb-sm,
+    .dark .index-thumb-md {
+        @apply bg-slate-800 border-dark-border;
+    }
+    .index-thumb-image {
+        @apply w-full h-full object-cover;
+    }
+    .index-empty-cell {
+        @apply px-6 py-20 text-center;
+    }
+    .index-empty-text {
+        @apply text-sm font-bold text-muted-text italic;
+    }
+    .index-pagination {
+        @apply p-6 border-t border-slate-50 bg-slate-50/20;
+    }
+    .dark .index-pagination {
+        @apply border-dark-border;
+    }
+    .client-rooms-hero {
+        @apply relative overflow-hidden pt-28 pb-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800;
+    }
+    .client-rooms-hero-glow {
+        @apply absolute rounded-full blur-3xl pointer-events-none;
+    }
+    .client-rooms-hero-glow-primary {
+        @apply w-80 h-80 -top-16 -left-20 bg-primary-500/25;
+    }
+    .client-rooms-hero-glow-amber {
+        @apply w-72 h-72 -bottom-24 right-8 bg-amber-400/20;
+    }
+    .client-rooms-hero-shell {
+        @apply relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+    }
+    .client-rooms-hero-content {
+        @apply max-w-3xl space-y-5;
+    }
+    .client-rooms-hero-kicker {
+        @apply admin-index-subtitle block text-primary-500;
+    }
+    .client-rooms-hero-title {
+        @apply text-4xl sm:text-6xl font-black tracking-tight text-white;
+    }
+    .client-rooms-hero-desc {
+        @apply text-base sm:text-lg leading-8 text-slate-300;
+    }
+    .client-rooms-filter-wrap {
+        @apply relative z-20 mx-auto -mb-12 mt-14 max-w-7xl px-4 sm:px-6 lg:px-8;
+    }
+    .client-rooms-filter-card {
+        @apply app-card !rounded-[2rem] !p-4 shadow-2xl lg:!p-6;
+    }
+    .client-rooms-summary-chip {
+        @apply rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300;
+    }
+    .client-rooms-content {
+        @apply mx-auto max-w-7xl px-4 pb-24 pt-20 sm:px-6 lg:px-8;
+    }
+    .client-rooms-result-head {
+        @apply mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between;
+    }
+    .client-rooms-empty {
+        @apply app-card border-dashed py-20 text-center;
+    }
+    .client-room-grid {
+        @apply grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3;
+    }
+    .client-room-card {
+        @apply app-card !p-0 overflow-hidden flex h-full flex-col transition-transform duration-500;
+    }
+    .client-room-media {
+        @apply relative h-72 overflow-hidden;
+    }
+    .client-room-image {
+        @apply h-full w-full object-cover transition-transform duration-700;
+    }
+    .client-room-image-placeholder {
+        @apply h-full w-full bg-slate-100 dark:bg-slate-800 flex flex-col items-center justify-center gap-2 text-muted-text;
+    }
+    .client-room-overlay {
+        @apply absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent;
+    }
+    .client-room-type-badge {
+        @apply rounded-full bg-white/90 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-main-text;
+    }
+    .client-room-category-badge {
+        @apply rounded-full bg-slate-900/80 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-white;
+    }
+    .client-room-price-box {
+        @apply rounded-2xl bg-slate-950/80 px-4 py-3 text-right text-white backdrop-blur-md;
+    }
+    .client-room-status-badge {
+        @apply absolute left-5 bottom-5 rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-white;
+    }
+    .client-room-body {
+        @apply flex flex-1 flex-col p-6;
+    }
+    .client-room-actions {
+        @apply mt-6 flex items-center justify-between border-t border-slate-100 pt-5 dark:border-dark-border;
+    }
+    .client-room-disabled-btn {
+        @apply !px-5 !py-3 !text-xs rounded-layout bg-slate-300 text-slate-500 font-bold cursor-not-allowed;
+    }
+    .client-room-show-shell {
+        @apply relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 pb-20 pt-24 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pt-32;
+    }
+    .client-room-show-intro {
+        @apply space-y-6 text-white;
+    }
+    .client-room-show-title {
+        @apply text-4xl sm:text-6xl font-black tracking-tight;
+    }
+    .client-room-show-desc {
+        @apply max-w-2xl text-base sm:text-lg leading-8 text-slate-300;
+    }
+    .client-room-show-chip {
+        @apply rounded-full border border-white/10 bg-white/10 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] backdrop-blur-md;
+    }
+    .client-room-show-media-card {
+        @apply app-card !p-0 overflow-hidden border-white/10 bg-white/10 shadow-2xl backdrop-blur-2xl;
+    }
+    .client-room-show-image-wrap {
+        @apply relative h-[420px];
+    }
+    .client-room-show-image-placeholder {
+        @apply h-full w-full bg-slate-100/80 dark:bg-slate-800 flex flex-col items-center justify-center gap-2 text-slate-500;
+    }
+    .client-room-show-price-grid {
+        @apply absolute bottom-5 left-5 right-5 grid grid-cols-2 gap-3;
+    }
+    .client-room-show-metric-light {
+        @apply rounded-3xl bg-white/95 p-4 shadow-lg;
+    }
+    .client-room-show-metric-dark {
+        @apply rounded-3xl bg-slate-950/85 p-4 text-white shadow-lg;
+    }
+    .client-room-show-content {
+        @apply mx-auto -mt-10 max-w-7xl px-4 pb-24 sm:px-6 lg:px-8;
+    }
+    .client-room-show-grid {
+        @apply grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start;
+    }
+    .client-room-meta-grid {
+        @apply mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4;
+    }
+    .client-room-meta-item {
+        @apply rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/60;
+    }
+    .client-room-amenity-item {
+        @apply flex items-center gap-3 rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/60;
+    }
+    .client-room-related-card {
+        @apply rounded-3xl border border-slate-100 bg-white p-4 transition-colors dark:border-dark-border dark:bg-dark-card;
+    }
+    .client-room-booking-card {
+        @apply app-card shadow-2xl border-primary-500/20;
+    }
+    .client-room-booking-summary {
+        @apply mb-6 space-y-2 rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/60;
+    }
+    .client-bookings-shell {
+        @apply mx-auto max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:px-8;
+    }
+    .client-bookings-hero {
+        @apply max-w-3xl space-y-4;
+    }
+    .client-bookings-kicker {
+        @apply admin-index-subtitle block text-primary-500;
+    }
+    .client-bookings-title {
+        @apply text-4xl font-black tracking-tight text-main-text dark:text-white sm:text-5xl;
+    }
+    .client-bookings-desc {
+        @apply text-base leading-8 text-slate-500 dark:text-slate-300;
+    }
+    .client-bookings-stats {
+        @apply mt-8 grid gap-4 sm:grid-cols-3;
+    }
+    .client-bookings-stat-card {
+        @apply app-card !p-5;
+    }
+    .client-bookings-stat-label {
+        @apply text-[10px] font-black uppercase tracking-widest text-muted-text;
+    }
+    .client-bookings-stat-value {
+        @apply mt-2 text-3xl font-black text-main-text dark:text-white;
+    }
+    .client-bookings-grid {
+        @apply mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3;
+    }
+    .client-bookings-card {
+        @apply app-card !p-0 overflow-hidden flex h-full flex-col;
+    }
+    .client-bookings-card-media {
+        @apply h-52 overflow-hidden;
+    }
+    .client-bookings-thumb {
+        @apply h-full w-full object-cover;
+    }
+    .client-bookings-thumb-placeholder {
+        @apply flex h-full w-full items-center justify-center bg-slate-100 text-slate-400 dark:bg-slate-800;
+    }
+    .client-bookings-card-body {
+        @apply flex flex-1 flex-col gap-4 p-6;
+    }
+    .client-bookings-top-row {
+        @apply flex items-start justify-between gap-4;
+    }
+    .client-bookings-code {
+        @apply text-sm font-black italic tracking-wider text-primary-500;
+    }
+    .client-bookings-status {
+        @apply rounded-full border px-3 py-1 text-[10px] font-black uppercase tracking-widest;
+    }
+    .client-booking-status-default {
+        @apply border-slate-200 bg-slate-100 text-slate-600;
+    }
+    .client-booking-status-pending {
+        @apply border-amber-200 bg-amber-100 text-amber-700;
+    }
+    .client-booking-status-confirmed {
+        @apply border-sky-200 bg-sky-100 text-sky-700;
+    }
+    .client-booking-status-inhouse {
+        @apply border-indigo-200 bg-indigo-100 text-indigo-700;
+    }
+    .client-booking-status-checked_in {
+        @apply border-indigo-200 bg-indigo-100 text-indigo-700;
+    }
+    .client-booking-status-finished,
+    .client-booking-status-checked_out {
+        @apply border-emerald-200 bg-emerald-100 text-emerald-700;
+    }
+    .client-booking-status-cancelled {
+        @apply border-rose-200 bg-rose-100 text-rose-700;
+    }
+    .client-bookings-room {
+        @apply text-xl font-black text-main-text dark:text-white;
+    }
+    .client-bookings-dates {
+        @apply space-y-1 text-sm text-slate-500 dark:text-slate-300;
+    }
+    .client-bookings-dates p span {
+        @apply font-semibold;
+    }
+    .client-bookings-dates p strong {
+        @apply ml-1 font-black text-main-text dark:text-white;
+    }
+    .client-bookings-footer {
+        @apply mt-auto flex items-end justify-between gap-4 border-t border-slate-100 pt-5 dark:border-dark-border;
+    }
+    .client-bookings-total-label {
+        @apply text-[10px] font-black uppercase tracking-widest text-muted-text;
+    }
+    .client-bookings-total-value {
+        @apply mt-1 text-2xl font-black text-primary-500;
+    }
+    .client-bookings-cta {
+        @apply rounded-layout bg-primary-500 px-4 py-3 text-xs font-black uppercase tracking-widest text-white transition-all;
+    }
+    .client-bookings-cta:hover {
+        @apply bg-primary-600;
+    }
+    .client-bookings-empty {
+        @apply app-card mt-8 py-16 text-center;
+    }
+    .client-bookings-empty h2 {
+        @apply text-2xl font-black text-main-text dark:text-white;
+    }
+    .client-bookings-empty p {
+        @apply mx-auto mt-3 max-w-xl text-sm text-slate-500 dark:text-slate-300;
+    }
+    .client-bookings-empty .btn-primary {
+        @apply mt-6 inline-flex;
+    }
+    .client-invoice-shell {
+        @apply mx-auto max-w-7xl space-y-6 px-4 pb-24 pt-28 sm:px-6 lg:px-8;
+    }
+    .client-invoice-head {
+        @apply flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between;
+    }
+    .client-invoice-head h1 {
+        @apply mt-1 text-4xl font-black tracking-tight text-main-text dark:text-white;
+    }
+    .client-invoice-code {
+        @apply mt-2 text-sm font-bold text-slate-500;
+    }
+    .client-invoice-back {
+        @apply text-sm font-bold text-muted-text transition-colors;
+    }
+    .client-invoice-back:hover {
+        @apply text-primary-500;
+    }
+    .client-invoice-top-grid {
+        @apply grid gap-6 lg:grid-cols-[1.2fr_0.8fr];
+    }
+    .client-invoice-info-card,
+    .client-invoice-summary-card,
+    .client-invoice-table-card,
+    .client-invoice-payment-card {
+        @apply app-card;
+    }
+    .client-invoice-info-card h2,
+    .client-invoice-table-head h3,
+    .client-invoice-payment-card h3 {
+        @apply text-2xl font-black text-main-text dark:text-white;
+    }
+    .client-invoice-info-card ul {
+        @apply mt-4 space-y-2 text-sm font-semibold text-slate-600 dark:text-slate-300;
+    }
+    .client-invoice-date-row {
+        @apply mt-5 grid gap-2 rounded-2xl bg-slate-50 p-4 text-sm dark:bg-slate-800/60 sm:grid-cols-2;
+    }
+    .client-invoice-date-row p span {
+        @apply font-semibold text-slate-500;
+    }
+    .client-invoice-date-row p strong {
+        @apply ml-1 font-black text-main-text dark:text-white;
+    }
+    .client-invoice-summary-note {
+        @apply mt-2 text-sm font-semibold text-slate-500 dark:text-slate-300;
+    }
+    .client-invoice-table-head {
+        @apply mb-4 flex items-center justify-between;
+    }
+    .client-invoice-table {
+        @apply w-full min-w-[680px] border-collapse text-left;
+    }
+    .client-invoice-table thead tr {
+        @apply border-b border-slate-100 text-[10px] font-black uppercase tracking-widest text-muted-text dark:border-dark-border;
+    }
+    .client-invoice-table th,
+    .client-invoice-table td {
+        @apply px-3 py-3 text-sm;
+    }
+    .client-invoice-table tbody tr {
+        @apply border-b border-slate-50 dark:border-dark-border/60;
+    }
+    .client-invoice-room-cell {
+        @apply flex items-center gap-3;
+    }
+    .client-invoice-room-thumb {
+        @apply h-12 w-16 rounded-xl object-cover;
+    }
+    .client-invoice-payment-grid {
+        @apply mt-4 grid gap-3 sm:grid-cols-3;
+    }
+    .client-invoice-payment-grid div {
+        @apply rounded-2xl bg-slate-50 p-4 dark:bg-slate-800/60;
+    }
+    .client-invoice-payment-grid p {
+        @apply text-[10px] font-black uppercase tracking-widest text-muted-text;
+    }
+    .client-invoice-payment-grid strong {
+        @apply mt-2 block text-lg font-black text-main-text dark:text-white;
+    }
+    .client-invoice-actions {
+        @apply flex items-center gap-3;
+    }
+    .client-invoice-action-note {
+        @apply text-sm font-semibold text-slate-500;
+    }
+}

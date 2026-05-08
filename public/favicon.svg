@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Dasher Hotel">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="56" height="56" rx="12" fill="url(#bg)" />
+
+  <path
+    d="M20 14h13.2c9.4 0 15.8 6 15.8 18s-6.4 18-15.8 18H20V14zm13 28.5c4.9 0 8.4-3.4 8.4-10.5S37.9 21.5 33 21.5h-5.2v21H33z"
+    fill="#ffffff"
+    transform="skewX(-10)"
+    transform-origin="32 32"
+  />
+</svg>
