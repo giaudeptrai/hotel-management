@@ -33,7 +33,7 @@ class BookingServices
             $endDate = $startDate->copy()->addDay();
         }
 
-        return Booking::with(['customer', 'bookingRooms.definition', 'bookingRooms.room'])
+        return Booking::with(['customer', 'bookingRooms.definition', 'bookingRooms.room', 'invoice'])
             ->when($startDate && $endDate, function ($q) use ($startDate, $endDate) {
                 $q->where('check_in_expected', '<', $endDate)
                     ->where('check_out_expected', '>', $startDate);
@@ -122,7 +122,7 @@ class BookingServices
                                ->whereRaw('DATE(?) <= DATE(NOW())', [$startDate]);
                       });
                   });
-            })->with('booking.customer');
+            })->with(['booking.customer', 'booking.invoice']);
         }])->orderBy('floor')->orderBy('room_number')->get();
 
         foreach ($rooms as $room) {

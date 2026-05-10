@@ -30,6 +30,9 @@ const overstayHours = computed(() => {
     return overtimeMinutes > 60 ? Math.ceil((overtimeMinutes - 60) / 60) : 0;
 });
 
+const displayTotalAmount = computed(() => Number(props.booking?.invoice?.total_amount ?? props.booking?.total_amount ?? 0));
+const displayDepositAmount = computed(() => Number(props.booking?.deposit_amount ?? 0));
+
 const statusColors = {
     pending: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400',
     confirmed: 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-400',
@@ -115,10 +118,10 @@ const statusLabels = {
                     <div class="space-y-6 flex flex-col justify-between">
                         <div class="p-5 rounded-2xl border" :class="isOverstay ? 'bg-rose-50 dark:bg-rose-500/10 border-rose-200 dark:border-rose-500/30' : 'bg-primary-500/5 border-primary-500/10 dark:bg-primary-500/10 dark:border-primary-500/20'">
                             <p class="text-[10px] font-black uppercase tracking-widest mb-1" :class="isOverstay ? 'text-rose-600' : 'text-primary-600/70'">Tổng dự kiến</p>
-                            <p class="text-2xl font-black tracking-tighter" :class="isOverstay ? 'text-rose-600' : 'text-primary-500'">{{ formatCurrency(booking.total_amount) }}</p>
+                            <p class="text-2xl font-black tracking-tighter" :class="isOverstay ? 'text-rose-600' : 'text-primary-500'">{{ formatCurrency(displayTotalAmount) }}</p>
 
                             <div class="mt-3 pt-3 flex justify-between" :class="isOverstay ? 'border-t border-rose-200' : 'border-t border-primary-500/10'">
-                                <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Đã cọc: {{ formatCurrency(booking.deposit_amount) }}</span>
+                                <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Đã cọc: {{ formatCurrency(displayDepositAmount) }}</span>
                             </div>
                         </div>
 
